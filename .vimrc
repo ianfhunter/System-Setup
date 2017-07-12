@@ -11,7 +11,7 @@ set wildmenu	" Autocomplete commands
 
 set showmatch	" Hilight Matching braces
 
-packadd! matchit   	" Matches HTML Tags with %
+packadd! matchit    " Matches HTML Tags with %
 
 "Protobuf Files
 augroup filetype
@@ -19,5 +19,12 @@ augroup filetype
     au! BufRead,BufNewFile *.pb setfiletype proto
 augroup end
 
-:command StripTrailing :%s/\s+$//e
+:command StripTrailing :%s/\s+$//e  " Strip trailing whitespace
+
+set foldenable  " Enable folding
+set foldlevelstart=10   " Collapse only severely nested code
+nnoremap <space> za     " Space key will fold and unfold code
+set foldmethod=indent 
+
+
 

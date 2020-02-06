@@ -1,0 +1,29 @@
+[user]
+     email = ianfhunter@gmail.com
+     name = Ian Hunter
+[core]
+     editor = vim
+[credential]
+     helper = store
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[alias]
+  co = checkout
+  cmt = commit
+  sts = status
+  br = branch
+  brd = branch -d # delete branch
+  brdf = branch -D # DELETE branch (forcefully)
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+~                                                                                                                                                                                                           
+~                                                                                                                                                                                                           
+~                                                                                                                                                                                                           
+~                                                                                                                                                                                                           
+~                                                                                                                                                                                                           
+~                                                                                                                                                                                                           
+~                                                                                                                                                                                                           
+~                                              

@@ -19,11 +19,3 @@
   brd = branch -d # delete branch
   brdf = branch -D # DELETE branch (forcefully)
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-~                                                                                                                                                                                                           
-~                                                                                                                                                                                                           
-~                                                                                                                                                                                                           
-~                                                                                                                                                                                                           
-~                                                                                                                                                                                                           
-~                                                                                                                                                                                                           
-~                                                                                                                                                                                                           
-~                                              

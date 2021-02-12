@@ -1,8 +1,8 @@
 set autoindent	" Pressing enter after line, automatically choose position 
 set ruler	" Cursor position at corner
 set number	" Line Numbers
-set hlsearch	" Hilight search results
-set cursorline	" Hlight current line
+set hlsearch	" Highlight search results
+set cursorline	" Highlight current line
 set tabstop=4	" Visual Spaces per TAB
 set softtabstop=4 	" Visual Spaces per TAB (when editing)
 set expandtab	" Use Spaces instead of tabs

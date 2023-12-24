@@ -97,6 +97,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# A bell command to signal the end of a long running command
+alias bell="printf '\aBELL!\n'"
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -135,38 +138,16 @@ function vbox_recover(){
   VBoxClient-all
 }
 
-export http_proxy=http://proxy-chain.intel.com:911
-export https_proxy=http://proxy-chain.intel.com:912
-export socks_proxy=http://proxy-chain.intel.com:1080
-export ftp_proxy=http://proxy-chain.intel.com:911
+export http_proxy=http://proxy-chain.???.com:911
+export https_proxy=http://proxy-chain.???.com:912
+export socks_proxy=http://proxy-chain.???.com:1080
+export ftp_proxy=http://proxy-chain.???.com:911
 
 # Alias to be case insensitive
 export SOCKS_PROXY=$socks_proxy
 export HTTP_PROXY=$http_proxy
 export HTTPS_PROXY=$https_proxy
 export FTP_PROXY=$ftp_proxy
-
-export STEM_ROOT=~/Code/STEM
-export BTR=${STEM_ROOT}/util/btr
-export MDK_ROOT=~/Code/mdk
-export MDK_HOME=${MDK_ROOT}
-export MDK_DIR=${MDK_ROOT}
-export NZOO_ROOT=~/Code/migNetworkZoo
-export MCM_HOME=~/Code/mcmcompiler
-export MV_TOOLS_DIR=~/WORK/Tools/
-export MV_TOOLS_VERSION="19.09.4_internal"
-export MV_SOC_REV=ma2490
-
-export FLAT_BUFFER_DIR="${MDK_HOME}/projects/Fathom/lib/graphFile-schema/flatbuffers"
-export FLATBUFFERS="${MDK_HOME}/projects/Fathom/lib/graphFile-schema/flatbuffers"
-export FLATBUFFERS_INC="${MDK_HOME}/projects/Fathom/lib/graphFile-schema/flatbuffers/include/"
-
-export PATH=$PATH:"${MDK_HOME}/projects/Fathom/lib/graphFile-schema/flatbuffers/"
-export PATH=$PATH:"~/.local/bin/":"~/bin"
-export PATH=$PATH:"${MV_TOOLS_DIR}/${MV_TOOLS_VERSION}/linux64/bin/"
-
-export PYTHONPATH="${PYTHONPATH}:/opt/movidius/caffe/python"
-export PYTHONPATH="${PYTHONPATH}:${HOME}/Code/caffe/python"
 
 # Define some console colors
 BLACK=$(tput setaf 0)
@@ -188,4 +169,3 @@ UNDERLINE=$(tput smul)
 BYELLOW='\[\033[01;33m\]'
 IBLACK='\[\033[0;90m\]'
 PS_CLEAR='\[\033[0m\]'
-PROMPT_SYMBOL=🙏

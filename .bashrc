@@ -224,4 +224,10 @@ function nonzero_return() {
 	[ $RETVAL -ne 0 ] && echo "$RETVAL"
 }
 
-export PS1="[prev:\[\e[31m\]\`nonzero_return\`\[\e[m\]]\u@\h:\t:\[\e[36m\]\`parse_git_branch\`\[\e[m\]\\$ "
+seconds2days() {
+  printf "%ddays,%02d:%02d:%02d" $(((($1/60)/60)/24)) \
+  $(((($1/60)/60)%24)) $((($1/60)%60)) $(($1%60)) |
+  sed 's/^1days/1day/;s/^0days,\(00:\)*//;s/^0//' ; }
+trap 'SECONDS=0' DEBUG
+
+export PS1="[prev:\[\e[31m\]\`nonzero_return\`\[\e[m\], $(seconds2days $SECONDS).]\u@\h:\t:\[\e[36m\]\`parse_git_branch\`\[\e[m\]\\$ "

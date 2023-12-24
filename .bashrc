@@ -1,7 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
+####### Default #########
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -11,6 +8,8 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
+
+####### Custom #########
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -252,3 +251,6 @@ seconds2days() {
 trap 'SECONDS=0' DEBUG
 
 export PS1="[prev:\[\e[31m\]\`nonzero_return\`\[\e[m\], $(seconds2days $SECONDS).]\u@\h:\t:\[\e[36m\]\`parse_git_branch\`\[\e[m\]\\$ "
+
+# Seperate file for work-specific variables
+source ~/.workrc | true

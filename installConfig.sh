@@ -1,2 +1,3 @@
-cp ~/.vimrc .vimrc
-cp ~/.hyper.js .hyper.js
+cp .vimrc ~/.vimrc
+cp .bashrc ~/.bashrc
+source ~/.bashrc

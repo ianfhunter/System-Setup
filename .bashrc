@@ -158,16 +158,16 @@ function extract () {
   fi 
 } 
 
-export http_proxy=http://proxy-chain.???.com:911
-export https_proxy=http://proxy-chain.???.com:912
-export socks_proxy=http://proxy-chain.???.com:1080
-export ftp_proxy=http://proxy-chain.???.com:911
+# export http_proxy=http://proxy-chain.???.com:911
+# export https_proxy=http://proxy-chain.???.com:912
+# export socks_proxy=http://proxy-chain.???.com:1080
+# export ftp_proxy=http://proxy-chain.???.com:911
 
-# Alias to be case insensitive
-export SOCKS_PROXY=$socks_proxy
-export HTTP_PROXY=$http_proxy
-export HTTPS_PROXY=$https_proxy
-export FTP_PROXY=$ftp_proxy
+# # Alias to be case insensitive
+# export SOCKS_PROXY=$socks_proxy
+# export HTTP_PROXY=$http_proxy
+# export HTTPS_PROXY=$https_proxy
+# export FTP_PROXY=$ftp_proxy
 
 # Define some console colors
 BLACK=$(tput setaf 0)
@@ -191,66 +191,30 @@ IBLACK='\[\033[0;90m\]'
 PS_CLEAR='\[\033[0m\]'
 
 # get current branch in git repo
-function parse_git_branch() {
-	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${BRANCH}" == "" ]
-	then
-		STAT=`parse_git_dirty`
-		echo "[${BRANCH}${STAT}]"
-	else
-		echo ""
-	fi
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-
-# Custom Prompt
-# get current status of git repo
-function parse_git_dirty {
-	status=`git status 2>&1 | tee`
-	dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-	untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-	ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
-	newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-	renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-	deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
-	bits=''
-	if [ "${renamed}" == "0" ]; then
-		bits=">${bits}"
-	fi
-	if [ "${ahead}" == "0" ]; then
-		bits="*${bits}"
-	fi
-	if [ "${newfile}" == "0" ]; then
-		bits="+${bits}"
-	fi
-	if [ "${untracked}" == "0" ]; then
-		bits="?${bits}"
-	fi
-	if [ "${deleted}" == "0" ]; then
-		bits="x${bits}"
-	fi
-	if [ "${dirty}" == "0" ]; then
-		bits="!${bits}"
-	fi
-	if [ ! "${bits}" == "" ]; then
-		echo " ${bits}"
-	else
-		echo ""
-	fi
-}
 
 function nonzero_return() {
 	RETVAL=$?
-	[ $RETVAL -ne 0 ] && echo "$RETVAL"
+	[ $RETVAL -ne 0 ] & echo "$RETVAL"
 }
 
-seconds2days() {
-  printf "%ddays,%02d:%02d:%02d" $(((($1/60)/60)/24)) \
-  $(((($1/60)/60)%24)) $((($1/60)%60)) $(($1%60)) |
-  sed 's/^1days/1day/;s/^0days,\(00:\)*//;s/^0//' ; }
-trap 'SECONDS=0' DEBUG
+function timer_start {
+  timer=${timer:-$SECONDS}
+}
 
-export PS1="[prev:\[\e[31m\]\`nonzero_return\`\[\e[m\], $(seconds2days $SECONDS).]\u@\h:\t:\[\e[36m\]\`parse_git_branch\`\[\e[m\]\\$ "
+function timer_stop {
+  timer_show=$(($SECONDS - $timer))
+  unset timer
+}
+
+trap 'timer_start' DEBUG
+
+PROMPT_COMMAND="timer_stop"
+
+export PS1='[exit:\[\e[31m\]$(nonzero_return)\e[m\]][time: ${timer_show}s]\u@\h:\w:\[\e[36m\]$(parse_git_branch)\[\e[m\]\\$ '
 
 # Seperate file for work-specific variables
-source ~/.workrc | true
+source ~/.workrc | true > /dev/null

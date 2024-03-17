@@ -20,3 +20,6 @@
   brdf = branch -D # DELETE branch (forcefully)
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   newest = branch -avv --sort=-committerdate
+
+# git config push.autosetupremote true
+# git config init.defaultBranch main

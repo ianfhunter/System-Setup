@@ -216,5 +216,6 @@ PROMPT_COMMAND="timer_stop"
 
 export PS1='[exit:\[\e[31m\]$(nonzero_return)\e[m\]][time: ${timer_show}s]\u@\h:\w:\[\e[36m\]$(parse_git_branch)\[\e[m\]\\$ '
 
+
 # Seperate file for work-specific variables
-source ~/.workrc | true > /dev/null
+source ~/.workrc | echo "No Work Configuration Found"
